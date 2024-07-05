@@ -13,7 +13,7 @@ app.use(cors());
 app.use("/auth", router);
 
 app.get("/", (req, res) => {
-  res.send("hellow world").status(200);
+  res.status(200).send("hellow world");
 });
 
 app.listen(port, async () => {
