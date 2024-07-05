@@ -1,0 +1,62 @@
+
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model user {
+  id String @id @default(uuid()) @map("_id") @db.ObjectId
+  name String
+  email String @unique
+  password String
+  transactions transactions[]
+  accounts Account[]
+  categories categories[]
+
+    created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model transactions {
+  id String @id @default(uuid()) @map("_id") @db.ObjectId
+  userId String @db.ObjectId
+  user user @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accountId String @db.ObjectId
+  account Account @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  categoryId String @db.ObjectId
+  category categories @relation(fields: [categoryId], references: [id], onDelete: Cascade) 
+  amount Int
+  payee String
+  notes String?
+  date DateTime
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model Account {
+  id String @id @default(uuid()) @map("_id") @db.ObjectId
+  name String
+  userId String @db.ObjectId
+  user user @relation(fields: [userId], references: [id], onDelete: Cascade)
+  transactions transactions[]
+
+    created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model categories {
+  id String @id @default(uuid()) @map("_id") @db.ObjectId
+  name String
+  userId String @db.ObjectId
+  user user @relation(fields: [userId], references: [id], onDelete: Cascade)
+  transactions transactions[]
+
+    created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
