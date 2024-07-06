@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import { router } from "./routes/auth.js";
+import severless from "serverless-http";
 
 dotenv.config();
 
@@ -16,6 +17,4 @@ app.get("/", (req, res) => {
   res.status(200).send("hellow world");
 });
 
-app.listen(port, async () => {
-  console.log(`Example app listening on port ${port}`);
-});
+module.exports.handler = severless(app);

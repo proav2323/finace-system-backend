@@ -2,8 +2,6 @@ import express from "express";
 import { db } from "../models/prisma.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { checkToken } from "../utills.js";
-
 export const router = express.Router();
 
 router.get("/:email", async (req, res) => {

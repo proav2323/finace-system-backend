@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js"
+    "build": "npx prisma generate",
+    "start": "netlify dev",
+    "dev": "nodemon index.js"
   },
   "author": "",
   "license": "ISC",
@@ -23,6 +25,7 @@
     "uuid": "^10.0.0"
   },
   "devDependencies": {
+    "netlify-cli": "^17.33.0",
     "prisma": "^5.16.1"
   }
 }
