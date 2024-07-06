@@ -10,7 +10,7 @@ datasource db {
 }
 
 model user {
-  id String @id @default(uuid()) @map("_id") @db.ObjectId
+  id String @id @default(auto()) @map("_id") @db.ObjectId
   name String
   email String @unique
   password String
@@ -23,7 +23,7 @@ model user {
 }
 
 model transactions {
-  id String @id @default(uuid()) @map("_id") @db.ObjectId
+  id String @id @default(auto()) @map("_id") @db.ObjectId
   userId String @db.ObjectId
   user user @relation(fields: [userId], references: [id], onDelete: Cascade)
   accountId String @db.ObjectId
@@ -40,7 +40,7 @@ model transactions {
 }
 
 model Account {
-  id String @id @default(uuid()) @map("_id") @db.ObjectId
+  id String @id @default(auto()) @map("_id") @db.ObjectId
   name String
   userId String @db.ObjectId
   user user @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -51,7 +51,7 @@ model Account {
 }
 
 model categories {
-  id String @id @default(uuid()) @map("_id") @db.ObjectId
+  id String @id @default(auto()) @map("_id") @db.ObjectId
   name String
   userId String @db.ObjectId
   user user @relation(fields: [userId], references: [id], onDelete: Cascade)

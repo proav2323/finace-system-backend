@@ -79,7 +79,7 @@ router.post("/login", async (req, res) => {
 
   const hash = user.password;
 
-  const compare = await bcrypt.compare(hash, password);
+  const compare = await bcrypt.compare(password, hash);
 
   if (!compare) {
     return res.send("wrong credentials").status(401);
