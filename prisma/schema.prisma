@@ -18,7 +18,7 @@ model user {
   accounts Account[]
   categories categories[]
 
-    created_at DateTime @default(now())
+  created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 }
 

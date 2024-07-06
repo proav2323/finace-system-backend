@@ -56,7 +56,14 @@ router.get("/", async (req, res) => {
     return res.status(500).send("somethign went wrong");
   }
 
-  const user = await db.user.findUnique({ where: { email: email } });
+  const user = await db.user.findUnique({
+    where: { email: email },
+    include: {
+      transactions: { include: { account: true, category: true } },
+      categories: true,
+      accounts: true,
+    },
+  });
 
   res.json(user).status(200);
 });
