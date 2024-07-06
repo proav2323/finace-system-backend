@@ -1,7 +1,0 @@
-# netlify.toml
-[build]
-  functions = "src/functions"
-  command = "npm run build"
-
-[dev]
-  command = "npm start"
