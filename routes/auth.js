@@ -5,25 +5,29 @@ import jwt from "jsonwebtoken";
 export const router = express.Router();
 
 router.get("/:email", async (req, res) => {
-  const email = req.params.email;
-  if (!email) {
-    return res.status(404).send("no email provided");
+  try {
+    const email = req.params.email;
+    if (!email) {
+      return res.status(404).send("no email provided");
+    }
+
+    const user = await db.user.findUnique({
+      where: { email: email },
+      include: {
+        transactions: { include: { account: true, category: true } },
+        categories: true,
+        accounts: true,
+      },
+    });
+
+    if (!user) {
+      return res.status(404).send("no user found with this email");
+    }
+
+    res.json(user).status(200);
+  } catch (err) {
+    res.status(500).send({ error: err });
   }
-
-  const user = await db.user.findUnique({
-    where: { email: email },
-    include: {
-      transactions: { include: { account: true, category: true } },
-      categories: true,
-      accounts: true,
-    },
-  });
-
-  if (!user) {
-    return res.status(404).send("no user found with this email");
-  }
-
-  res.json(user).status(200);
 });
 
 router.get("/", async (req, res) => {
