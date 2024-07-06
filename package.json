@@ -6,7 +6,7 @@
   "scripts": {
     "build": "prisma migrate reset -f",
     "prisma:generate": "prisma generate",
-    "dev": "PORT=3000 node src/index.js",
+    "dev": "PORT=3000 node index.js",
     "start": "node index.js"
   },
   "author": "",
