@@ -97,7 +97,7 @@ router.post("/login", async (req, res) => {
   const compare = await bcrypt.compare(password, hash);
 
   if (!compare) {
-    return res.send("wrong credentials").status(401);
+    return res.status(401).send("wrong credentials");
   }
 
   const token = jwt.sign(
