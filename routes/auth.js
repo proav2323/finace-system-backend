@@ -43,8 +43,12 @@ router.get("/", async (req, res) => {
   if (!bearerToken) {
     return res.status(404).send("no token");
   }
-
-  const data = jwt.verify(bearerToken, process.env.SECRET ?? "NEW SCRETE");
+  let data;
+  try {
+    data = jwt.verify(bearerToken, process.env.SECRET ?? "NEW SCRETE");
+  } catch (Err) {
+    return res.status(403).send("unauthorized");
+  }
 
   if (!data) {
     return res.status(403).send("unauthorized");
