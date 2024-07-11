@@ -122,6 +122,7 @@ TransactionsRouter.delete("/delete/:id", async (req, res) => {
 
 TransactionsRouter.get("/", async (req, res) => {
   const valid = checkToken(req);
+  const { start, end, account } = req.query;
 
   if (valid === false) {
     return res.status(401).send("login first");
@@ -137,9 +138,34 @@ TransactionsRouter.get("/", async (req, res) => {
     return res.status(404).send("no email or id from token");
   }
 
+  let query = {
+    userId: id,
+  };
+  console.log(start, end, account);
+
+  if (start && end) {
+    query = {
+      date: {
+        gt: new Date(start),
+        lt: new Date(end),
+      },
+      ...query,
+    };
+  }
+
+  if (account) {
+    if (account !== "allAccounts") {
+      query = {
+        accountId: account,
+        ...query,
+      };
+    }
+  }
   const transactions = await db.transactions.findMany({
-    where: {
-      userId: id,
+    where: query,
+    include: {
+      account: true,
+      category: true,
     },
   });
 
@@ -167,6 +193,10 @@ TransactionsRouter.get("/get/:id", async (req, res) => {
     where: {
       userId: id,
       id: transctionId,
+    },
+    include: {
+      account: true,
+      category: true,
     },
   });
 
