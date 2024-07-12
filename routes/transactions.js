@@ -35,7 +35,7 @@ TransactionsRouter.post("/add", async (req, res) => {
     data: {
       userId: id,
       amount: amount,
-      date: date,
+      date: new Date(date),
       payee: payee,
       accountId: accountId,
       categoryId: categoryId,
