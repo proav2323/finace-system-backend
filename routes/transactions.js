@@ -161,6 +161,7 @@ TransactionsRouter.get("/", async (req, res) => {
       };
     }
   }
+  console.log(query);
   const transactions = await db.transactions.findMany({
     where: query,
     include: {
