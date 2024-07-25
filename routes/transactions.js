@@ -68,7 +68,6 @@ TransactionsRouter.put("/update/:id", async (req, res) => {
     !categoryId ||
     !amount ||
     !payee ||
-    !notes ||
     !date
   ) {
     return res.status(404).send("no email or id from token");
