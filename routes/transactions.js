@@ -80,7 +80,7 @@ TransactionsRouter.put("/update/:id", async (req, res) => {
     },
     data: {
       amount: amount,
-      date: date,
+      date: new Date(date),
       payee: payee,
       accountId: accountId,
       categoryId: categoryId,
